@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            color: #333;
+            padding-bottom: 80px;
+            /* space for footer */
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .project {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .project h3 {
+            margin-top: 0;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .skill-btn {
+            padding: 10px 20px;
+            border: 2px solid #2c3e50;
+            border-radius: 25px;
+            background: white;
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skill-btn:hover {
+            background: #2c3e50;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #about p {
+            font-size: 14px;
+            /* default is usually ~16px, so this is a little bigger */
+            line-height: 1.6;
+            /* makes it easier to read */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .projects-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: flex-start;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(44, 62, 80, 0.10);
+            overflow: hidden;
+            width: 320px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .project-card:active {
+            opacity: 0.95;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.18);
+            border-color: #2c3e50;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 160px;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #aaa;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 18px 16px 16px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-content h3 {
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+            font-size: 1.35em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+
+        .project-card:hover .project-content h3 {
+            color: #2980b9;
+        }
+
+        .project-details {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.35s, max-height 0.35s;
+            pointer-events: none;
+        }
+
+        .project-card:hover .project-details {
+            opacity: 1;
+            max-height: 200px;
+            pointer-events: auto;
+        }
+
+        .project-content p {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .project-content a {
+            margin-top: auto;
+            color: #2c3e50;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .project-content a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 10px 22px;
+            border: 2px solid #2980b9;
+            border-radius: 25px;
+            background: white;
+            color: #2980b9;
+            font-size: 15px;
+            font-weight: bold;
+            margin-right: 18px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(41, 128, 185, 0.08);
+        }
+
+        .contact-btn.email {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .contact-btn.email:hover {
+            background: #27ae60;
+            color: white;
+            transform: scale(1.08);
+            box-shadow: 0 4px 14px rgba(39, 174, 96, 0.18);
+        }
+
+        .contact-btn.linkedin {
+            border-color: #2980b9;
+            color: #2980b9;
+        }
+
+        .contact-btn.linkedin:hover {
+            background: #2980b9;
+            color: white;
+            transform: scale(1.08);
+            box-shadow: 0 4px 14px rgba(41, 128, 185, 0.18);
+        }
+
+        .contact-btn.github {
+            border-color: #333;
+            color: #333;
+        }
+
+        .contact-btn.github:hover {
+            background: #333;
+            color: #fff;
+            transform: scale(1.08);
+            box-shadow: 0 4px 14px rgba(51, 51, 51, 0.18);
+        }
+
+        .hobbies-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 18px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .hobby-badge {
+            display: flex;
+            align-items: center;
+            padding: 10px 22px;
+            border-radius: 22px;
+            font-size: 15px;
+            font-weight: bold;
+            background: #fff;
+            border: 2px solid #f39c12;
+            color: #f39c12;
+            box-shadow: 0 2px 8px rgba(243, 156, 18, 0.08);
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+            cursor: default;
+            user-select: none;
+        }
+
+        .hobby-badge.chess {
+            border-color: #27ae60;
+            color: #27ae60;
+            background: #eafaf1;
+        }
+
+        .hobby-badge.coding {
+            border-color: #2980b9;
+            color: #2980b9;
+            background: #eaf1fa;
+        }
+
+        .hobby-badge.gaming {
+            border-color: #8e44ad;
+            color: #8e44ad;
+            background: #f5eafc;
+        }
+
+        .hobby-badge:hover {
+            background: currentColor;
+            color: #fff;
+            transform: scale(1.08);
+        }
+
+        .hobby-badge.chess:hover {
+            background: #27ae60;
+            color: #fff;
+        }
+
+        .hobby-badge.coding:hover {
+            background: #2980b9;
+            color: #fff;
+        }
+
+        .hobby-badge.gaming:hover {
+            background: #8e44ad;
+            color: #fff;
+        }
+
+        #testimonials {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            background: linear-gradient(120deg, #eaf6ff 60%, #f5fafd 100%);
+            padding: 0 0 30px 0;
+        }
+
+        #testimonials .section {
+            margin-bottom: 0;
+        }
+
+        #testimonials h2 {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 40px;
+            padding-bottom: 0;
+        }
+
+        #testimonials blockquote {
+            margin: 30px auto 0 auto;
+            padding: 38px 48px 32px 48px;
+            max-width: 1100px;
+            background: none;
+            border-left: 8px solid #2980b9;
+            border-radius: 22px;
+            font-size: 1.45em;
+            font-style: italic;
+            color: #222;
+            box-shadow: 0 4px 24px rgba(41, 128, 185, 0.10);
+            position: relative;
+            transition: box-shadow 0.3s;
+            background-color: #fafdff;
+        }
+
+        #testimonials blockquote::before {
+            content: "“";
+            font-size: 3em;
+            color: #2980b9;
+            position: absolute;
+            left: 28px;
+            top: 10px;
+            font-family: serif;
+            opacity: 0.25;
+        }
+
+        #testimonials blockquote::after {
+            content: "”";
+            font-size: 3em;
+            color: #2980b9;
+            position: absolute;
+            right: 28px;
+            bottom: 10px;
+            font-family: serif;
+            opacity: 0.25;
+        }
+
+        #testimonials blockquote span {
+            display: block;
+            margin-top: 24px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2980b9;
+            text-align: right;
+            font-style: normal;
+            letter-spacing: 0.5px;
+        }
+
+        #education ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        #education li {
+            background: #fafdff;
+            border-left: 5px solid #2980b9;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            padding: 18px 22px 14px 22px;
+            box-shadow: 0 2px 10px rgba(41, 128, 185, 0.07);
+            transition: box-shadow 0.3s;
+        }
+
+        #education li:hover {
+            box-shadow: 0 6px 24px rgba(41, 128, 185, 0.13);
+            background: #eaf6ff;
+        }
+
+        #education b {
+            color: #2c3e50;
+            font-size: 1.08em;
+        }
+
+        #education span {
+            display: block;
+            color: #2980b9;
+            font-size: 0.98em;
+            margin-top: 6px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Shriyansh Guha</h1>
+        <p>Java Developer | Web Designer | UI/UX Enthusiast</p>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="about" class="section">
+            <h2>About Me</h2>
+            <p>
+                I am a final year B.Tech student at Medi-Caps University, Pigdambar Rau, with a deep interest in Java
+                development and backend technologies. My academic journey and personal projects have given me hands-on
+                experience with Java, Swing, JDBC, and MySQL. I am passionate about building management systems, desktop
+                applications, and exploring UI/UX design to create user-friendly solutions.<br><br>
+                I am currently looking to expand my knowledge in Spring Boot and enterprise Java, and I am also
+                interested in learning about mainframe systems and Python libraries. While I am not experienced in
+                JavaScript, I have a good grasp of HTML and CSS for web design. I am a quick learner, adaptable, and
+                always open to new challenges and technologies.
+            </p>
+        </section>
+
+        <!-- New Education Section -->
+        <section id="education" class="section">
+            <h2>Education</h2>
+            <ul>
+                <li>
+                    <b>B.Tech in Computer Science (Specialization: Data Structures)</b>, Medi-Caps University, Pigdambar
+                    Rau, Indore (M.P), India<br>
+                    <span>2022 – 2026 (Currently in Final Year, 4th Year Student)</span>
+                </li>
+                <li>
+                    <b>Senior Secondary (12th), CBSE</b>, Little Wonders Convent School, Indore (M.P), India<br>
+                    <span>Completed in 2022 with 83%</span>
+                </li>
+            </ul>
+        </section>
+
+
+        <section id="projects" class="section">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <!-- ...existing project cards... -->
+                <div class="project-card"
+                    onclick="window.open('https://github.com/ShriyanshGuha/Electricity-Billing-System','_blank')">
+                    <div class="project-image">
+                        <img src="ebs.png" alt="Electricity Bill Management System" class="project-image" />
+                    </div>
+                    <div class="project-content">
+                        <h3>Electricity Bill Management System (EBS) (Java)</h3>
+                        <div class="project-details">
+                            <p>A desktop application built with Java Swing and MySQL to manage electricity billing,
+                                customer records, and admin login system.</p>
+                            <p><b>Tech Used:</b> Java, Swing, JDBC, MySQL</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card"
+                    onclick="window.open('https://github.com/ShriyanshGuha/School-Management-System','_blank')">
+                    <div class="project-image">
+                        <img src="sms.png" alt="School Management System" class="project-image" />
+                    </div>
+                    <div class="project-content">
+                        <h3>School Management System (SMS) (Java)</h3>
+                        <div class="project-details">
+                            <p>A Java-based system to handle student records, faculty details, and admin operations.
+                                Includes secure login with roles (Admin, Faculty, Student).</p>
+                            <p><b>Tech Used:</b> Java, Swing, JDBC, MySQL</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card"
+                    onclick="window.open('https://github.com/ShriyanshGuha/Flappy_Bird','_blank')">
+                    <div class="project-image">
+                        <img src="flappybird.jpg" alt="Flappy Bird Game" class="project-image" />
+                    </div>
+                    <div class="project-content">
+                        <h3>Flappy Bird Game (Java)</h3>
+                        <div class="project-details">
+                            <p>A mini-game created using Java AWT & Swing with custom graphics and collision detection.
+                            </p>
+                            <p><b>Tech Used:</b> Java, AWT, Swing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <button class="skill-btn">Java</button>
+                <button class="skill-btn">Swing</button>
+                <button class="skill-btn">JDBC</button>
+                <button class="skill-btn">MySQL</button>
+                <button class="skill-btn">HTML</button>
+                <button class="skill-btn">CSS</button>
+                <button class="skill-btn">Figma</button>
+                <button class="skill-btn">UI/UX Design</button>
+            </div>
+        </section>
+
+        <!-- Remove Achievements Section -->
+        <!-- <section id="achievements" class="section">
+            <h2>Achievements</h2>
+            <ul>
+                <li>Winner, College Hackathon 2024</li>
+                <li>Top 10, National Coding Challenge 2023</li>
+            </ul>
+        </section> -->
+
+        <!-- New Testimonials Section -->
+        <section id="testimonials">
+            <div class="section">
+                <h2>Testimonials</h2>
+                <blockquote>
+                    As a final year B.Tech student at Medi-Caps University, I have developed a strong passion for Java
+                    and backend development. My journey has been driven by curiosity and a desire to build real-world
+                    solutions, especially using Java, Swing, and JDBC. I am eager to learn Spring Boot and further
+                    enhance my skills as a Java developer.<br><br>
+                    I am always open to exploring new technologies, including mainframe systems and Python libraries.
+                    While I do not have experience with JavaScript yet, I have a solid foundation in HTML and CSS, and I
+                    am committed to continuous learning and growth in the tech field.<br><br>
+                    My dedication, adaptability, and enthusiasm for learning help me tackle new challenges and
+                    collaborate effectively with others.
+                    <span>- Shriyansh Guha</span>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- New Hobbies & Interests Section -->
+        <section id="hobbies" class="section">
+            <h2>Hobbies & Interests</h2>
+            <ul class="hobbies-list">
+                <li><span class="hobby-badge chess">♟️ Chess</span></li>
+                <li><span class="hobby-badge coding">💻 Coding</span></li>
+                <li><span class="hobby-badge gaming">🎮 Gaming</span></li>
+            </ul>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contact</h2>
+            <a href="mailto:shri20guha@gmail.com" class="contact-btn email">shri20guha@gmail.com</a>
+            <a href="https://www.linkedin.com/in/shriyansh-guha" target="_blank"
+                class="contact-btn linkedin">LinkedIn</a>
+            <a href="https://github.com/ShriyanshGuha/" target="_blank" class="contact-btn github">
+                GitHub
+            </a>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2025 Shriyansh Guha | Portfolio</p>
+    </footer>
+
+</body>
+
+</html>
